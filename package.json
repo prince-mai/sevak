@@ -1,0 +1,20 @@
+{
+  "name": "sevak-bihar-platform",
+  "version": "1.0.0",
+  "description": "SEVAK - Patna & Bihar's Premier Multi-Service Hyperlocal & B2B Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "agy-node server.js"
+  },
+  "keywords": [
+    "patna",
+    "bihar",
+    "hyperlocal",
+    "home-services",
+    "b2b-contracting",
+    "amc",
+    "maintenance"
+  ],
+  "author": "SEVAK Technologies Bihar Pvt. Ltd.",
+  "license": "ISC"
+}

@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEVAK (सेवक) — One Platform, Every Service | Patna & Bihar</title>
+  <meta name="description" content="Bihar's premier multi-service platform. Electrical, Plumbing, Pest Control, Cleaning, Civil, Construction, Aluminium Glass, Painting, CCTV, Fire Safety & B2B Turnkey Services across Patna and Bihar." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              200: '#fde68a',
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            },
+            navy: {
+              800: '#1e293b',
+              900: '#0f172a',
+              950: '#020617'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Lucide Icons -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased selection:bg-amber-500 selection:text-white">
+
+  <!-- TOP ANNOUNCEMENT / SUPER-BAR -->
+  <div class="bg-navy-900 text-slate-300 text-xs py-2 px-4 border-b border-navy-800">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span class="font-medium">Patna Hub Active: <b>48 Technicians On-Duty</b></span>
+        <span class="hidden sm:inline text-slate-600">|</span>
+        <a href="tel:+919661168109" class="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 transition">
+          <i data-lucide="phone-call" class="w-3 h-3 text-amber-400"></i>
+          <span>Helpline: +91 96611 68109</span>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <!-- Language Switcher -->
+        <div class="flex items-center bg-navy-800 rounded-lg p-0.5 border border-slate-700 text-[11px] font-bold">
+          <button type="button" onclick="SevakApp.setLanguage('en')" data-lang="en" class="lang-toggle-btn px-2 py-0.5 rounded bg-amber-500 text-white transition">English</button>
+          <button type="button" onclick="SevakApp.setLanguage('hi')" data-lang="hi" class="lang-toggle-btn px-2 py-0.5 rounded text-slate-400 hover:text-white transition">हिंदी</button>
+        </div>
+
+        <!-- Mobile Frame Switcher -->
+        <button id="toggle-mobile-preview-btn" onclick="SevakApp.toggleMobileFrame()" class="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1.5 transition">
+          <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+          <span class="hidden md:inline">Preview Mobile App View</span>
+        </button>
+
+        <!-- Admin Hub Link -->
+        <a href="admin.html" class="text-slate-300 hover:text-white font-bold flex items-center gap-1 transition">
+          <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-amber-500"></i>
+          <span>Admin Portal</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION CONTAINER (Supports Simulated Mobile Phone Frame Mode) -->
+  <div id="app-viewport-container">
+    <!-- Simulated Mobile Notch (Visible in mobile frame mode) -->
+    <div class="mobile-notch">
+      <span>9:41</span>
+      <div class="dynamic-island"></div>
+      <div class="flex items-center gap-1">
+        <span>5G</span>
+        <i data-lucide="battery-charging" class="w-3.5 h-3.5 text-emerald-400"></i>
+      </div>
+    </div>
+
+    <!-- MAIN NAVIGATION -->
+    <header class="sticky top-0 z-40 glass-nav">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Logo & Brand -->
+          <div class="flex items-center gap-3">
+            <a href="index.html" class="flex items-center gap-2.5 group">
+              <img src="assets/logo.jpg" alt="SEVAK Logo" class="w-11 h-11 rounded-full object-cover shadow-md border-2 border-amber-500 group-hover:scale-105 transition" />
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-2xl font-black tracking-tight text-slate-900">SEVAK</span>
+                  <span class="text-[10px] bg-amber-500 text-white font-black px-1.5 py-0.5 rounded tracking-wider">BIHAR</span>
+                </div>
+                <p class="text-[10px] font-semibold text-slate-500 tracking-wider uppercase">One Platform, Every Service</p>
+              </div>
+            </a>
+          </div>
+
+          <!-- Hyperlocal Locality Selector -->
+          <div class="hidden lg:flex items-center bg-slate-100 hover:bg-slate-200/80 rounded-xl px-3 py-1.5 border border-slate-200 transition">
+            <i data-lucide="map-pin" class="w-4 h-4 text-amber-600 mr-2 shrink-0"></i>
+            <div class="text-left">
+              <span class="block text-[10px] font-bold text-slate-400 uppercase">Service Locality</span>
+              <select id="global-area-select" onchange="SevakApp.onAreaChange(this.value)" class="bg-transparent text-xs font-bold text-slate-800 focus:outline-none cursor-pointer">
+                <!-- Injected via app.js -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Nav Links -->
+          <nav class="hidden md:flex items-center gap-6 text-xs font-bold text-slate-600">
+            <a href="#services-section" class="hover:text-amber-600 transition">14 Services</a>
+            <a href="#amc-section" class="hover:text-amber-600 transition">AMC Contracts</a>
+            <a href="#b2b-section" class="hover:text-amber-600 transition">B2B Turnkey</a>
+            <button onclick="SevakTracking.openTracking()" class="hover:text-amber-600 transition flex items-center gap-1 text-slate-700">
+              <i data-lucide="navigation" class="w-3.5 h-3.5 text-amber-500"></i>
+              <span>Live Tracking</span>
+            </button>
+            <a href="#reviews-section" class="hover:text-amber-600 transition">Patna Reviews</a>
+          </nav>
+
+          <!-- Primary CTAs -->
+          <div class="flex items-center gap-2.5">
+            <a href="tel:+919661168109" class="hidden lg:flex items-center gap-1.5 px-3.5 py-2.5 text-xs font-bold text-slate-800 bg-amber-50 hover:bg-amber-100 rounded-xl border border-amber-300 transition">
+              <i data-lucide="phone-call" class="w-4 h-4 text-amber-600"></i>
+              <span>+91 96611 68109</span>
+            </a>
+
+            <button onclick="SevakQuote.openQuoteModal()" class="hidden sm:flex px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl transition items-center gap-1.5 border border-slate-200">
+              <i data-lucide="calculator" class="w-4 h-4 text-slate-600"></i>
+              <span>Get Quote</span>
+            </button>
+
+            <button onclick="SevakBooking.openBooking('electrical')" class="btn-primary px-4 py-2.5 text-xs font-bold flex items-center gap-1.5">
+              <i data-lucide="calendar-check" class="w-4 h-4"></i>
+              <span data-i18n="bookNow">Book Instant</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Real-time Area Dispatch Live Status Pill -->
+        <div class="pb-2.5 pt-0.5">
+          <div id="area-live-status-pill" class="text-[11px] text-slate-600 flex items-center gap-2 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full w-fit">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Checking live technician radar in Patna...</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-8 pb-16 overflow-hidden bg-gradient-to-b from-amber-50/40 via-white to-slate-50 border-b border-slate-200/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="text-center max-w-3xl mx-auto">
+          <!-- Trust Badge -->
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-100/70 border border-amber-300 text-amber-900 text-xs font-bold mb-4 shadow-sm">
+            <span class="flex h-2 w-2 rounded-full bg-amber-500"></span>
+            <span data-i18n="heroTag">BIHAR'S #1 TRUSTED SERVICE SUPER-PLATFORM</span>
+          </div>
+
+          <!-- Main Hero Headings -->
+          <h1 data-i18n="heroHeading" class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight sm:leading-none">
+            One Platform, <span class="bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 bg-clip-text text-transparent">Every Service</span>
+          </h1>
+          <p data-i18n="heroSubheading" class="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium">
+            Professional Electrical, Plumbing, Pest Control, Civil, Construction, Aluminium/Glass, Painting, CCTV, Fire Safety & B2B Project Contracting across Patna & Bihar.
+          </p>
+
+          <!-- Interactive Instant Search Box -->
+          <div class="mt-8 max-w-xl mx-auto relative">
+            <div class="relative flex items-center shadow-lg rounded-2xl overflow-hidden border border-slate-200 bg-white">
+              <div class="pl-4 text-slate-400">
+                <i data-lucide="search" class="w-5 h-5 text-amber-500"></i>
+              </div>
+              <input type="text"
+                id="hero-service-search"
+                oninput="SevakApp.onSearchServices(this.value)"
+                placeholder="Search for AC service, plumber, termite, glass partition, painting..."
+                class="w-full py-4 pl-3 pr-28 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none" />
+              <button onclick="SevakBooking.openBooking()" class="absolute right-2 btn-primary px-4 py-2.5 text-xs font-bold flex items-center gap-1">
+                <span>Book Now</span>
+              </button>
+            </div>
+
+            <!-- Quick Keyword Tags -->
+            <div class="mt-3 flex flex-wrap justify-center items-center gap-1.5 text-[11px] text-slate-500">
+              <span class="font-semibold text-slate-400">Popular:</span>
+              <button onclick="SevakApp.onSearchServices('ac')" class="px-2 py-0.5 bg-white rounded border border-slate-200 hover:border-amber-400">AC Service</button>
+              <button onclick="SevakApp.onSearchServices('leak')" class="px-2 py-0.5 bg-white rounded border border-slate-200 hover:border-amber-400">Water Leakage</button>
+              <button onclick="SevakApp.onSearchServices('termite')" class="px-2 py-0.5 bg-white rounded border border-slate-200 hover:border-amber-400">Termite (दीमक)</button>
+              <button onclick="SevakApp.onSearchServices('glass')" class="px-2 py-0.5 bg-white rounded border border-slate-200 hover:border-amber-400">Glass Partition</button>
+              <button onclick="SevakApp.onSearchServices('cctv')" class="px-2 py-0.5 bg-white rounded border border-slate-200 hover:border-amber-400">CCTV Kit</button>
+              <button onclick="SevakApp.onSearchServices('seelan')" class="px-2 py-0.5 bg-white rounded border border-slate-200 hover:border-amber-400">सीलन (Dampness)</button>
+            </div>
+          </div>
+
+          <!-- Hero Action Buttons -->
+          <div class="mt-8 flex flex-wrap justify-center items-center gap-3">
+            <button onclick="SevakBooking.openBooking('electrical')" class="btn-primary px-6 py-3.5 text-xs sm:text-sm font-bold flex items-center gap-2 shadow-md">
+              <i data-lucide="zap" class="w-4 h-4"></i>
+              <span data-i18n="bookNow">Book Instant Service</span>
+            </button>
+
+            <button onclick="SevakQuote.openQuoteModal()" class="px-6 py-3.5 bg-white hover:bg-slate-50 text-slate-800 text-xs sm:text-sm font-bold rounded-xl border border-slate-300 shadow-sm transition flex items-center gap-2">
+              <i data-lucide="file-spreadsheet" class="w-4 h-4 text-amber-600"></i>
+              <span data-i18n="requestQuote">Request Project Quote</span>
+            </button>
+
+            <button onclick="SevakTracking.openTracking()" class="px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold rounded-xl shadow-sm transition flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4 text-emerald-400"></i>
+              <span data-i18n="trackLive">Live GPS Tracker</span>
+            </button>
+          </div>
+
+          <!-- Trust Badges Row -->
+          <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6 border-t border-slate-200/80">
+            <div class="flex items-center gap-2 text-left">
+              <div class="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 font-bold">
+                ✓
+              </div>
+              <div>
+                <p class="text-xs font-bold text-slate-900">Police Verified</p>
+                <p class="text-[10px] text-slate-500">100% Aadhaar & Background Checked</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 text-left">
+              <div class="w-9 h-9 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                <i data-lucide="shield-check" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-slate-900">30-Day Guarantee</p>
+                <p class="text-[10px] text-slate-500">Free rework if not fully satisfied</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 text-left">
+              <div class="w-9 h-9 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+                <i data-lucide="file-check" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-slate-900">GST Compliant</p>
+                <p class="text-[10px] text-slate-500">Bihar State Code 10 Tax Invoices</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 text-left">
+              <div class="w-9 h-9 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
+                <i data-lucide="clock" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-slate-900">30-Min Emergency</p>
+                <p class="text-[10px] text-slate-500">Express dispatch across Patna</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMERGENCY 30-MIN SOS CALLOUT BANNER -->
+    <section class="bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 text-white py-4 px-4 shadow-inner">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur flex items-center justify-center shrink-0 text-xl font-bold animate-pulse">
+            ⚡
+          </div>
+          <div>
+            <h4 class="font-black text-sm md:text-base leading-tight">Got an Electrical Short Circuit, MCB Fire Risk, or Main Pipe Burst?</h4>
+            <p class="text-xs text-amber-100 mt-0.5">Instant emergency dispatch across all Patna zones within 30 minutes.</p>
+          </div>
+        </div>
+
+        <button onclick="SevakApp.triggerEmergencyBooking()" class="bg-slate-950 hover:bg-black text-white px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition shadow-lg shrink-0 flex items-center gap-2">
+          <span>Trigger 30-Min Emergency SOS</span>
+          <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- 14 CORE SERVICES SECTION -->
+    <section id="services-section" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 pb-8 border-b border-slate-200">
+        <div>
+          <span class="text-xs font-black uppercase tracking-wider text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+            One Platform, Every Service
+          </span>
+          <h2 class="text-2xl sm:text-4xl font-black text-slate-900 mt-2">14 Comprehensive Service Verticals</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">From daily home repairs to industrial project execution across Patna and Bihar.</p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="flex flex-wrap gap-1.5">
+          <button type="button" onclick="SevakApp.filterServices('all', this)" class="svc-filter-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-white transition">All Services</button>
+          <button type="button" onclick="SevakApp.filterServices('emergency', this)" class="svc-filter-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">⚡ Quick Repair</button>
+          <button type="button" onclick="SevakApp.filterServices('renovation', this)" class="svc-filter-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">🏗️ Renovation & Civil</button>
+          <button type="button" onclick="SevakApp.filterServices('safety', this)" class="svc-filter-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">🛡️ Safety & Tech</button>
+          <button type="button" onclick="SevakApp.filterServices('b2b', this)" class="svc-filter-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">🏢 B2B & AMC</button>
+        </div>
+      </div>
+
+      <!-- 14 Services Grid (Injected via app.js) -->
+      <div id="services-cards-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Dynamic Cards -->
+      </div>
+    </section>
+
+    <!-- CUSTOM PROJECT ESTIMATOR TEASER / BANNER -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="glass-dark rounded-3xl p-8 md:p-12 relative overflow-hidden shadow-2xl">
+        <div class="relative z-10 max-w-2xl">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-950/60 border border-amber-800/80 px-3 py-1 rounded-full">
+            Turnkey Architecture & Civil
+          </span>
+          <h2 class="text-2xl sm:text-4xl font-black text-white mt-3 leading-tight">
+            Planning a Renovation, Glass Partition or Rooftop Construction in Patna?
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+            Get an engineered Bill of Quantities (BOQ) with transparent per-sq.ft rate cards, structural engineers, and high-grade materials (Tata Tiscon, Ultratech, Saint-Gobain, Asian Paints).
+          </p>
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <button onclick="SevakQuote.openQuoteModal('civil-renovation')" class="btn-primary px-6 py-3 text-xs font-bold flex items-center gap-2">
+              <i data-lucide="calculator" class="w-4 h-4"></i>
+              <span>Open Project Cost Calculator</span>
+            </button>
+            <button onclick="SevakProject.openBlueprintModal()" class="px-5 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 border border-white/15">
+              <i data-lucide="layers" class="w-4 h-4"></i>
+              <span>View Sample BOQ & Blueprint</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AMC (ANNUAL MAINTENANCE CONTRACTS) SECTION -->
+    <section id="amc-section" class="py-16 bg-white border-y border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto">
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+            Guaranteed SLAs & Zero Labor Fees
+          </span>
+          <h2 data-i18n="amcTitle" class="text-2xl sm:text-4xl font-black text-slate-900 mt-2">Annual Maintenance Contracts (AMC)</h2>
+          <p data-i18n="amcSubtitle" class="text-xs sm:text-sm text-slate-500 mt-1">
+            Zero breakdown headaches for Homes, Housing Societies (RWAs), Hospitals, Schools & Commercial Hubs in Bihar.
+          </p>
+        </div>
+
+        <!-- AMC 3-Tier Grid -->
+        <div id="amc-plans-grid" class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Injected via amc.js -->
+        </div>
+
+        <!-- Interactive Society Custom AMC Calculator -->
+        <div class="mt-12 glass-card rounded-2xl p-6 md:p-8 border border-slate-200 max-w-4xl mx-auto">
+          <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+              <i data-lucide="building" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-base text-slate-900">Custom Society & Apartment AMC Estimator</h4>
+              <p class="text-xs text-slate-500">Calculate instant annual maintenance cost for your RWA or residential complex.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 items-center">
+            <!-- Flats Slider -->
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-2">
+                <span class="text-slate-700">Number of Flats</span>
+                <span id="amc-flats-count-display" class="text-amber-600 font-mono">30 Flats / Units</span>
+              </div>
+              <input type="range" id="amc-flats-slider" min="10" max="150" value="30" step="5"
+                oninput="SevakAMC.calculateCustomSocietyAMC()"
+                class="w-full accent-amber-500 cursor-pointer" />
+            </div>
+
+            <!-- Tank Cleaning Frequency -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-2">Tank Cleaning Frequency</label>
+              <select id="amc-tanks-select" onchange="SevakAMC.calculateCustomSocietyAMC()"
+                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 focus:outline-none">
+                <option value="4">4 Times / Year (Quarterly - Recommended)</option>
+                <option value="6">6 Times / Year (Bi-Monthly)</option>
+                <option value="2">2 Times / Year (Half-Yearly)</option>
+              </select>
+            </div>
+
+            <!-- Calculated Cost -->
+            <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-4 text-center">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800">Estimated Annual Contract</span>
+              <div id="amc-custom-calculated-cost" class="mt-1">
+                <div class="text-2xl font-black text-slate-900 font-mono">₹18,900 <span class="text-xs font-semibold text-slate-500">/ year</span></div>
+                <p class="text-xs text-amber-600 font-semibold mt-0.5">Only ~₹52/month per flat</p>
+              </div>
+              <button onclick="SevakQuote.openQuoteModal('amc')" class="mt-3 w-full btn-primary py-1.5 px-3 text-[11px] font-bold">
+                Request RWA Society Proposal
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- B2B TURNKEY PROJECT MANAGEMENT SECTION -->
+    <section id="b2b-section" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+          Turnkey Contracting & Milestones
+        </span>
+        <h2 data-i18n="b2bTitle" class="text-2xl sm:text-4xl font-black text-slate-900 mt-2">Live B2B Project Management Portal</h2>
+        <p data-i18n="b2bSubtitle" class="text-xs sm:text-sm text-slate-500 mt-1">
+          Complete transparency for Commercial Offices, Diagnostic Labs, Hospitals, and Builders with milestone phase tracking.
+        </p>
+      </div>
+
+      <div id="b2b-project-tracker-container">
+        <!-- Injected via project.js -->
+      </div>
+    </section>
+
+    <!-- VERIFIED REVIEWS FROM PATNA & BIHAR -->
+    <section id="reviews-section" class="py-16 bg-slate-100/70 border-t border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 pb-8">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+              Verified Patna Residents & RWA Reviews
+            </span>
+            <h2 class="text-2xl sm:text-4xl font-black text-slate-900 mt-2">Trusted Across Every Patna Locality</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">From Boring Road to Kankarbagh and Danapur — over 25,000 satisfied service requests.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-2xl font-black text-slate-900 font-mono">4.92 / 5.0</span>
+            <div class="text-amber-500 text-sm">★★★★★</div>
+            <span class="text-xs text-slate-400 font-semibold">(4,820+ verified ratings)</span>
+          </div>
+        </div>
+
+        <div id="testimonials-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <!-- Injected via app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-navy-950 text-slate-400 pt-16 pb-12 border-t border-navy-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 border-b border-navy-800">
+          <!-- Column 1: Brand -->
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-2xl font-black tracking-tight text-white">SEVAK</span>
+              <span class="text-xs bg-amber-500 text-white font-black px-2 py-0.5 rounded">BIHAR</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+              “One Platform, Every Service” — Bihar's most trusted hyperlocal service and turnkey B2B project contracting platform.
+            </p>
+            <div class="mt-4 text-xs space-y-1 text-slate-400">
+              <p><b class="text-slate-200">Head Office:</b> Maurya Lok Complex Opp., Dak Bunglow Rd, Patna, Bihar 800001</p>
+              <p><b class="text-slate-200">24/7 Helpline & WhatsApp:</b> <a href="tel:+919661168109" class="text-amber-400 font-bold hover:underline">+91 96611 68109</a></p>
+              <p><b class="text-slate-200">GSTIN:</b> 10AABCS8891P1ZK (Bihar State Code: 10)</p>
+            </div>
+          </div>
+
+          <!-- Column 2: Home & Daily Services -->
+          <div>
+            <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-3">Home & Daily Services</h4>
+            <ul class="text-xs space-y-2">
+              <li><a href="javascript:void(0)" onclick="SevakBooking.openBooking('electrical')" class="hover:text-amber-400 transition">Electrical & Wiring</a></li>
+              <li><a href="javascript:void(0)" onclick="SevakBooking.openBooking('plumbing')" class="hover:text-amber-400 transition">Plumbing & Water Tanks</a></li>
+              <li><a href="javascript:void(0)" onclick="SevakBooking.openBooking('pest-control')" class="hover:text-amber-400 transition">Termite & Pest Control</a></li>
+              <li><a href="javascript:void(0)" onclick="SevakBooking.openBooking('cleaning')" class="hover:text-amber-400 transition">Deep Cleaning & Sofas</a></li>
+              <li><a href="javascript:void(0)" onclick="SevakBooking.openBooking('maintenance')" class="hover:text-amber-400 transition">Carpentry & Handyman</a></li>
+              <li><a href="javascript:void(0)" onclick="SevakBooking.openBooking('painting')" class="hover:text-amber-400 transition">Asian Paints Wall Paint</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Civil & B2B Projects -->
+          <div>
+            <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-3">Civil & Turnkey Services</h4>
+            <ul class="text-xs space-y-2">
+              <li><a href="javascript:void(0)" onclick="SevakQuote.openQuoteModal('civil-renovation')" class="hover:text-amber-400 transition">सीलन Dampness Treatment</a></li>
+              <li><a href="javascript:void(0)" onclick="SevakQuote.openQuoteModal('construction')" class="hover:text-amber-400 transition">Rooftop Floor Addition</a></li>
+              <li><a href="javascript:void(0)" onclick="SevakQuote.openQuoteModal('aluminium-glass')" class="hover:text-amber-400 transition">Toughened Glass Partitions</a></li>
+              <li><a href="javascript:void(0)" onclick="SevakQuote.openQuoteModal('cctv')" class="hover:text-amber-400 transition">CCTV Surveillance & Biometric</a></li>
+              <li><a href="javascript:void(0)" onclick="SevakQuote.openQuoteModal('fire-safety')" class="hover:text-amber-400 transition">Fire Extinguishers & NOC</a></li>
+              <li><a href="javascript:void(0)" onclick="SevakQuote.openQuoteModal('b2b-projects')" class="hover:text-amber-400 transition">Turnkey Commercial Fitouts</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Coverage Localities -->
+          <div>
+            <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-3">Patna Coverage Zones</h4>
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <span class="px-2 py-1 bg-navy-800 rounded text-slate-300">Boring Road</span>
+              <span class="px-2 py-1 bg-navy-800 rounded text-slate-300">Kankarbagh</span>
+              <span class="px-2 py-1 bg-navy-800 rounded text-slate-300">Bailey Road</span>
+              <span class="px-2 py-1 bg-navy-800 rounded text-slate-300">Danapur</span>
+              <span class="px-2 py-1 bg-navy-800 rounded text-slate-300">Patliputra</span>
+              <span class="px-2 py-1 bg-navy-800 rounded text-slate-300">Saguna More</span>
+              <span class="px-2 py-1 bg-navy-800 rounded text-slate-300">Rajendra Nagar</span>
+              <span class="px-2 py-1 bg-navy-800 rounded text-slate-300">Ashiana Nagar</span>
+              <span class="px-2 py-1 bg-navy-800 rounded text-slate-300">Patna City</span>
+              <span class="px-2 py-1 bg-navy-800 rounded text-slate-300">Exhibition Road</span>
+            </div>
+            <div class="mt-4 pt-3 border-t border-navy-800 flex items-center gap-2">
+              <a href="admin.html" class="text-xs font-bold text-amber-400 hover:underline flex items-center gap-1">
+                <span>Access Admin Operations Center</span>
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+          <p>© 2026 SEVAK Technologies Bihar Pvt. Ltd. All rights reserved.</p>
+          <div class="flex items-center gap-4">
+            <a href="javascript:void(0)" class="hover:text-slate-300">Privacy Policy</a>
+            <a href="javascript:void(0)" class="hover:text-slate-300">Terms of Service</a>
+            <a href="javascript:void(0)" class="hover:text-slate-300">GST Registration</a>
+            <a href="javascript:void(0)" class="hover:text-slate-300">Patna Office Map</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div> <!-- End App Viewport Container -->
+
+  <!-- ========================================================================= -->
+  <!-- MODALS CONTAINER                                                          -->
+  <!-- ========================================================================= -->
+
+  <!-- 1. MULTI-STEP SERVICE BOOKING MODAL -->
+  <div id="booking-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 md:p-8 shadow-2xl relative my-8 border border-slate-200">
+      <!-- Confetti Canvas for celebration -->
+      <canvas id="booking-confetti-canvas" class="absolute inset-0 pointer-events-none z-30"></canvas>
+
+      <!-- Modal Header -->
+      <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-xs">
+            ⚡
+          </div>
+          <div>
+            <h3 class="text-lg font-black text-slate-900">Book Professional Service</h3>
+            <p class="text-xs text-slate-500">Patna Verified Technicians with 30-Day Guarantee</p>
+          </div>
+        </div>
+        <button onclick="SevakBooking.closeBooking()" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Step Progress Bar -->
+      <div class="flex items-center justify-between my-4 px-2">
+        <div class="flex items-center gap-1.5">
+          <span id="step-indicator-1" class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-bold">1</span>
+          <span class="text-[11px] font-bold text-slate-700 hidden sm:inline">Select</span>
+        </div>
+        <div class="flex-1 h-0.5 bg-slate-200 mx-2"></div>
+        <div class="flex items-center gap-1.5">
+          <span id="step-indicator-2" class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-xs font-bold">2</span>
+          <span class="text-[11px] font-bold text-slate-700 hidden sm:inline">Location & Photos</span>
+        </div>
+        <div class="flex-1 h-0.5 bg-slate-200 mx-2"></div>
+        <div class="flex items-center gap-1.5">
+          <span id="step-indicator-3" class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-xs font-bold">3</span>
+          <span class="text-[11px] font-bold text-slate-700 hidden sm:inline">Pay & Confirm</span>
+        </div>
+      </div>
+
+      <!-- STEP 1: Select Service & Sub-service -->
+      <div id="booking-step-1" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-2">Category</label>
+          <div id="book-category-pills" class="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+            <!-- Injected -->
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-2">Select Exact Service / Repair Item</label>
+          <div id="book-subservice-list" class="space-y-2 max-h-56 overflow-y-auto pr-1">
+            <!-- Injected -->
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex justify-end">
+          <button type="button" onclick="SevakBooking.goToStep(2)" class="btn-primary py-2.5 px-5 text-xs font-bold flex items-center gap-2">
+            <span>Continue to Address & Photos</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Address, Time & Photo/Video Upload -->
+      <div id="booking-step-2" class="hidden space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Your Name</label>
+            <input type="text" id="book-customer-name" value="Aman Verma" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-amber-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Mobile Number</label>
+            <input type="text" id="book-customer-phone" value="+91 98350 12345" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-amber-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Patna Locality / Zone</label>
+            <select id="book-area-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-amber-500">
+              <!-- Injected -->
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Date & Time Slot</label>
+            <select id="book-slot-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-amber-500">
+              <option value="Today Express (Under 30 Mins)">⚡ Today Express (Within 30 Mins)</option>
+              <option value="Today Afternoon (2:00 PM - 4:00 PM)">Today Afternoon (2:00 PM - 4:00 PM)</option>
+              <option value="Today Evening (5:00 PM - 7:00 PM)">Today Evening (5:00 PM - 7:00 PM)</option>
+              <option value="Tomorrow Morning (9:00 AM - 12:00 PM)">Tomorrow Morning (9:00 AM - 12:00 PM)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Flat / House No., Landmark</label>
+          <input type="text" id="book-customer-address" value="Flat 402, Shanti Vihar, Boring Road, Patna" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-amber-500" />
+        </div>
+
+        <!-- Emergency 30-min Express Toggle -->
+        <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-base">⚡</span>
+            <div>
+              <h5 class="text-xs font-bold text-slate-900">Emergency 30-Min Priority Dispatch</h5>
+              <p class="text-[10px] text-slate-500">Nearest Patna technician assigned immediately (+₹99)</p>
+            </div>
+          </div>
+          <input type="checkbox" id="express-toggle-checkbox" onchange="SevakBooking.toggleExpress(this.checked)" class="w-4 h-4 accent-amber-500 cursor-pointer" />
+        </div>
+
+        <!-- Photo / Video Issue Upload -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Upload Photo / Short Video of Issue (Optional)</label>
+          <div class="border-2 border-dashed border-slate-200 hover:border-amber-400 rounded-xl p-3 text-center transition cursor-pointer relative bg-slate-50">
+            <input type="file" multiple accept="image/*,video/*" onchange="SevakBooking.handleFileUpload(event)" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
+            <i data-lucide="camera" class="w-5 h-5 text-amber-500 mx-auto"></i>
+            <p class="text-xs font-bold text-slate-700 mt-1">Tap to snap photo or upload video</p>
+            <p class="text-[10px] text-slate-400">Helps technician arrive with the exact spare parts</p>
+          </div>
+          <div id="uploaded-media-previews" class="mt-2 space-y-1.5 max-h-24 overflow-y-auto">
+            <!-- Injected previews -->
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex justify-between">
+          <button type="button" onclick="SevakBooking.goToStep(1)" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl transition">
+            Back
+          </button>
+          <button type="button" onclick="SevakBooking.goToStep(3)" class="btn-primary py-2.5 px-5 text-xs font-bold flex items-center gap-2">
+            <span>Proceed to Payment & Summary</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Bill Breakdown & Payment Gateway -->
+      <div id="booking-step-3" class="hidden space-y-4">
+        <!-- Bill Breakdown Card -->
+        <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Transparent Bill Breakdown</h4>
+          <div id="booking-bill-breakdown">
+            <!-- Injected via updateBillSummary() -->
+          </div>
+
+          <!-- Coupon Code -->
+          <div class="mt-4 pt-3 border-t border-slate-200">
+            <div class="flex gap-2">
+              <input type="text" id="book-coupon-code" placeholder="Promo code e.g. PATNAFIRST" class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase font-mono font-bold focus:outline-none focus:border-amber-500" />
+              <button type="button" onclick="SevakBooking.applyCoupon()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold transition">
+                Apply
+              </button>
+            </div>
+            <div id="book-coupon-msg" class="text-[10px] mt-1">
+              <span class="text-slate-400">Use <b>PATNAFIRST</b> for flat ₹100 discount!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Mode Selection -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-2">Select Payment Method</label>
+          <div class="space-y-2">
+            <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-white hover:border-amber-400 cursor-pointer">
+              <div class="flex items-center gap-3">
+                <input type="radio" name="book-payment" value="UPI (PhonePe/GPay)" checked class="accent-amber-500" />
+                <div>
+                  <h5 class="text-xs font-bold text-slate-900">Instant UPI (PhonePe / Google Pay / Paytm / QR)</h5>
+                  <p class="text-[10px] text-emerald-600 font-medium">Instant confirmation & 100% moneyback guarantee</p>
+                </div>
+              </div>
+              <span class="text-xs font-mono font-bold text-slate-700">UPI</span>
+            </label>
+
+            <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-white hover:border-amber-400 cursor-pointer">
+              <div class="flex items-center gap-3">
+                <input type="radio" name="book-payment" value="Credit/Debit Card" class="accent-amber-500" />
+                <div>
+                  <h5 class="text-xs font-bold text-slate-900">Credit / Debit Card / NetBanking</h5>
+                  <p class="text-[10px] text-slate-400">All major Indian banks supported</p>
+                </div>
+              </div>
+              <span class="text-xs font-mono font-bold text-slate-700">Cards</span>
+            </label>
+
+            <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-white hover:border-amber-400 cursor-pointer">
+              <div class="flex items-center gap-3">
+                <input type="radio" name="book-payment" value="Cash on Service" class="accent-amber-500" />
+                <div>
+                  <h5 class="text-xs font-bold text-slate-900">Cash / Pay After Work Done</h5>
+                  <p class="text-[10px] text-slate-400">Pay technician via Cash or UPI after service completion</p>
+                </div>
+              </div>
+              <span class="text-xs font-mono font-bold text-slate-700">COD</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex justify-between items-center">
+          <button type="button" onclick="SevakBooking.goToStep(2)" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl transition">
+            Back
+          </button>
+          <button type="button" onclick="SevakBooking.submitBooking()" class="btn-primary py-3 px-6 text-xs font-black flex items-center gap-2">
+            <span>Pay & Confirm (</span>
+            <span id="pay-button-total-amount">₹...</span>
+            <span>)</span>
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Confirmation Screen -->
+      <div id="booking-step-4" class="hidden">
+        <div id="booking-confirmation-content">
+          <!-- Injected via renderConfirmation() -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. CUSTOM PROJECT & B2B QUOTE MODAL -->
+  <div id="quote-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 md:p-8 shadow-2xl relative my-8 border border-slate-200">
+      <!-- Modal Header -->
+      <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-xs">
+            📐
+          </div>
+          <div>
+            <h3 class="text-lg font-black text-slate-900">Request Turnkey Project Quote</h3>
+            <p class="text-xs text-slate-500">Free On-Site Survey by Senior Patna Civil/Project Engineer</p>
+          </div>
+        </div>
+        <button onclick="SevakQuote.closeQuoteModal()" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="quote-modal-content" class="mt-4 space-y-4">
+        <form onsubmit="SevakQuote.submitQuoteRequest(event)" class="space-y-4">
+          <!-- Service Category & Property Type -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Service Type</label>
+              <select id="quote-category-select" onchange="SevakQuote.calculateEstimate()"
+                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-amber-500">
+                <option value="civil-renovation">Civil, Plaster & सीलन Rectification</option>
+                <option value="construction">Construction & Rooftop Extra Floor</option>
+                <option value="aluminium-glass">Toughened Glass & Aluminium Partitions</option>
+                <option value="painting">Interior / Exterior Full Painting & Waterproofing</option>
+                <option value="fire-safety">Fire Safety Hydrant & Bihar NOC Audit</option>
+                <option value="cctv">IP CCTV & Biometric Turnkey Setup</option>
+                <option value="b2b-projects">Commercial Turnkey Fitout (Office/Hospital)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Property Type</label>
+              <select id="quote-property-type" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-amber-500">
+                <option value="Independent House / Villa">Independent House / Villa</option>
+                <option value="Apartment Flat (RWA)">Apartment Flat (RWA)</option>
+                <option value="Commercial Shop / Showroom">Commercial Shop / Showroom</option>
+                <option value="Corporate Office">Corporate Office</option>
+                <option value="Hospital / Diagnostic Clinic">Hospital / Diagnostic Clinic</option>
+                <option value="School / College / Institution">School / College / Institution</option>
+                <option value="Builder / Real Estate Site">Builder / Real Estate Site</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Area & Material Grade -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Estimated Area (in Sq.Ft)</label>
+              <input type="number" id="quote-area-input" value="650" min="50" max="50000" oninput="SevakQuote.calculateEstimate()"
+                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-amber-500" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Material Quality Preference</label>
+              <select id="quote-material-grade" onchange="SevakQuote.calculateEstimate()"
+                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-amber-500">
+                <option value="standard">Standard (ISI Approved - Budget Friendly)</option>
+                <option value="premium" selected>Premium (Saint-Gobain, Asian Paints, Jindal)</option>
+                <option value="luxury">Luxury (Imported Fittings, 5-10 Year Guarantee)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dynamic Live Estimate Bracket -->
+          <div id="quote-estimate-range-display">
+            <!-- Injected via calculateEstimate() -->
+          </div>
+
+          <!-- Client Contact & Locality -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Full Name</label>
+              <input type="text" id="quote-client-name" required value="Er. Saurav Sinha" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-amber-500" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Phone Number (For Engineer Visit)</label>
+              <input type="text" id="quote-client-phone" required value="+91 94310 88210" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-amber-500" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Site Locality in Patna / Bihar</label>
+            <select id="quote-locality-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-amber-500">
+              <option value="Boring Road, Patna">Boring Road, Patna</option>
+              <option value="Kankarbagh, Patna">Kankarbagh, Patna</option>
+              <option value="Bailey Road / Raja Bazar, Patna">Bailey Road / Raja Bazar, Patna</option>
+              <option value="Danapur & Saguna More, Patna">Danapur & Saguna More, Patna</option>
+              <option value="Patliputra Colony, Patna">Patliputra Colony, Patna</option>
+              <option value="Rajendra Nagar, Patna">Rajendra Nagar, Patna</option>
+              <option value="Patna City (Gulzarbagh/Chowk)">Patna City (Gulzarbagh/Chowk)</option>
+              <option value="Muzaffarpur Hub">Muzaffarpur Hub</option>
+              <option value="Gaya Hub">Gaya Hub</option>
+              <option value="Bhagalpur Hub">Bhagalpur Hub</option>
+            </select>
+          </div>
+
+          <!-- Upload Floor Plan / Site Photos -->
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Upload Site Photo / Architectural Blueprint (Optional)</label>
+            <div class="border-2 border-dashed border-slate-200 rounded-xl p-3 text-center relative bg-slate-50">
+              <input type="file" multiple accept=".pdf,image/*" onchange="SevakQuote.handlePlanUpload(event)" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
+              <i data-lucide="file-up" class="w-5 h-5 text-amber-500 mx-auto"></i>
+              <p class="text-xs font-bold text-slate-700 mt-1">Upload Floor Plan / PDF / Photos</p>
+              <p class="text-[10px] text-slate-400">Formats: JPG, PNG, PDF up to 25MB</p>
+            </div>
+            <div id="quote-plan-previews" class="mt-2 flex flex-wrap gap-1.5"></div>
+          </div>
+
+          <!-- Actions -->
+          <div class="pt-3 border-t border-slate-100 flex justify-end gap-3">
+            <button type="button" onclick="SevakQuote.closeQuoteModal()" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl transition">
+              Cancel
+            </button>
+            <button type="submit" class="btn-primary py-2.5 px-6 text-xs font-bold flex items-center gap-2">
+              <i data-lucide="calendar-check" class="w-4 h-4"></i>
+              <span>Book Free Site Engineer Survey</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. LIVE TECHNICIAN GPS TRACKING MODAL (LEAFLET.JS PATNA MAP) -->
+  <div id="tracking-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 md:p-8 shadow-2xl relative my-8 border border-slate-200">
+      <!-- Modal Header -->
+      <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+          <div>
+            <h3 class="text-lg font-black text-slate-900">Live Technician GPS Tracking</h3>
+            <p class="text-xs text-slate-500" id="tracking-live-status-text">Passing Pantaloons Crossing / Bailey Road</p>
+          </div>
+        </div>
+        <button onclick="SevakTracking.closeTracking()" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- ETA Card & Service Banner -->
+      <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-3">
+          <span class="text-[10px] uppercase font-bold text-amber-700 block">Live ETA Arrival</span>
+          <span id="track-eta-countdown" class="text-xl font-black text-amber-600 font-mono">18m 45s</span>
+        </div>
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Service Start OTP</span>
+          <span id="track-otp" class="text-xl font-black text-slate-900 font-mono tracking-widest">4829</span>
+        </div>
+        <div class="col-span-2 sm:col-span-1 bg-emerald-50 border border-emerald-200 rounded-xl p-3">
+          <span class="text-[10px] uppercase font-bold text-emerald-700 block">Police Verified</span>
+          <span class="text-xs font-bold text-emerald-800 flex items-center gap-1 mt-1">
+            <span>✓ 100% Cleared</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Leaflet Map Canvas Container -->
+      <div class="mt-4 relative rounded-2xl overflow-hidden border border-slate-200 shadow-inner h-64 sm:h-72 w-full">
+        <div id="leaflet-map-container" class="w-full h-full"></div>
+        <div class="absolute bottom-2 left-2 z-[400] bg-white/90 backdrop-blur px-2.5 py-1 rounded-lg text-[10px] font-bold text-slate-700 shadow border border-slate-200">
+          📍 Real-time Patna Traffic Routing
+        </div>
+      </div>
+
+      <!-- Technician Profile Card -->
+      <div class="mt-4 bg-slate-50 rounded-2xl p-4 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-500 text-white font-bold flex items-center justify-center text-base shadow">
+            RK
+          </div>
+          <div>
+            <h4 class="font-bold text-sm text-slate-900" id="track-tech-name">Rakesh Kumar</h4>
+            <p class="text-xs text-slate-500">Bajaj Pulsar (BR-01-EQ-9102) • <span id="track-tech-exp" class="font-semibold text-slate-700">8 yrs in Patna</span></p>
+            <div class="flex items-center gap-2 mt-0.5">
+              <span id="track-tech-rating" class="text-xs font-bold text-amber-600">4.95 ★</span>
+              <span class="text-[10px] text-slate-400">342 Patna homes serviced</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <a id="track-tech-phone" href="tel:+919431088761" class="flex-1 sm:flex-initial btn-primary py-2.5 px-4 text-xs font-bold flex items-center justify-center gap-1.5">
+            <i data-lucide="phone-call" class="w-4 h-4"></i>
+            <span>Call Partner</span>
+          </a>
+          <button onclick="SevakApp.showToast('💬 Opening live technician chat...')" class="p-2.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl transition">
+            <i data-lucide="message-square" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. SAMPLE BLUEPRINT / BOQ PREVIEW MODAL -->
+  <div id="blueprint-preview-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 md:p-8 shadow-2xl relative my-8 border border-slate-200">
+      <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">📐</span>
+          <div>
+            <h3 class="text-lg font-black text-slate-900">Architectural BOQ & Project Blueprint</h3>
+            <p class="text-xs text-slate-500">Project: Dr. A. N. Memorial Diagnostic Centre (Patna City)</p>
+          </div>
+        </div>
+        <button onclick="SevakProject.closeBlueprintModal()" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="mt-4 space-y-4 text-xs">
+        <!-- SVG Floor Plan Mockup -->
+        <div class="bg-slate-900 rounded-2xl p-4 text-white relative overflow-hidden font-mono border border-slate-800">
+          <div class="flex justify-between items-center pb-2 border-b border-slate-800 text-[10px] text-amber-400 font-bold uppercase">
+            <span>SEVAK Turnkey Engineering Division (Patna)</span>
+            <span>Scale: 1:100 • DWG Ref #8802-BR</span>
+          </div>
+          <div class="py-6 text-center">
+            <svg class="mx-auto max-w-full h-44 stroke-amber-400 fill-none" viewBox="0 0 400 180">
+              <rect x="10" y="10" width="380" height="160" stroke-width="2" stroke-dasharray="4" />
+              <rect x="25" y="25" width="160" height="60" stroke-width="1.5" />
+              <text x="35" y="60" fill="#94a3b8" font-size="11" font-family="sans-serif">X-Ray Room (Lead Lined)</text>
+              <rect x="205" y="25" width="170" height="60" stroke-width="1.5" />
+              <text x="215" y="60" fill="#94a3b8" font-size="11" font-family="sans-serif">Pathology & Cold Storage</text>
+              <rect x="25" y="95" width="160" height="60" stroke-width="1.5" />
+              <text x="35" y="130" fill="#94a3b8" font-size="11" font-family="sans-serif">Doctor Consultation Cabin</text>
+              <rect x="205" y="95" width="170" height="60" stroke-width="1.5" />
+              <text x="215" y="130" fill="#94a3b8" font-size="11" font-family="sans-serif">Reception & Waiting Lounge</text>
+            </svg>
+          </div>
+          <p class="text-[10px] text-slate-400 text-center">Certified Seismic Zone IV Structural Design Compliant with Bihar Building By-laws</p>
+        </div>
+
+        <!-- Material Specification Checklist -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <h5 class="font-bold text-slate-900 mb-2">Approved Materials & Specifications:</h5>
+          <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600">
+            <div>• Toughened 12mm Saint-Gobain Glass</div>
+            <div>• Asian Paints Royal Luxury Sheen (Apex)</div>
+            <div>• Jindal 1.5mm Heavy Aluminium Sections</div>
+            <div>• Polycab FRLS Fire-Resistant Copper Wiring</div>
+            <div>• Astral CPVC Pipes (Lead Free)</div>
+            <div>• Kajaria 4x2 Vitrified High-Traffic Tiles</div>
+          </div>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2">
+          <button onclick="SevakApp.showToast('📥 Downloading Architectural BOQ PDF (Demo)...')" class="btn-primary py-2 px-4 text-xs font-bold flex items-center gap-1.5">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+            <span>Download Full BOQ Document</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. GST TAX INVOICE MODAL -->
+  <div id="gst-invoice-modal" class="hidden">
+    <!-- Injected dynamically via SevakInvoice.renderInvoice() -->
+  </div>
+
+  <!-- SCRIPTS LOAD -->
+  <script src="js/data.js"></script>
+  <script src="js/invoice.js"></script>
+  <script src="js/tracking.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/quote.js"></script>
+  <script src="js/amc.js"></script>
+  <script src="js/project.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Initialize Lucide Icons -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>

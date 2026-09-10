@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEVAK Operations Command Center | Patna & Bihar Dispatch Hub</title>
+
+  <!-- Tailwind CSS & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-slate-100 text-slate-900 antialiased selection:bg-amber-500 selection:text-white">
+
+  <!-- TOP NAVIGATION -->
+  <header class="bg-slate-900 text-white sticky top-0 z-40 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center gap-3">
+          <a href="index.html" class="flex items-center gap-2.5 group">
+            <img src="assets/logo.jpg" alt="SEVAK Logo" class="w-9 h-9 rounded-full object-cover shadow border border-amber-400 group-hover:scale-105 transition" />
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-lg font-black tracking-tight text-white">SEVAK</span>
+                <span class="text-[9px] bg-amber-500 text-slate-950 font-black px-1.5 py-0.5 rounded">COMMAND HUB</span>
+              </div>
+              <p class="text-[9px] text-slate-400 font-semibold tracking-wider">Patna & Bihar Dispatch Radar</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="hidden sm:flex items-center gap-2 text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-3 py-1 rounded-full">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            <span>Live Sync: 48 On-Duty Fleet</span>
+          </div>
+
+          <button onclick="SevakAdmin.exportCSV()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-slate-700">
+            <i data-lucide="download" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>Export CSV</span>
+          </button>
+
+          <a href="index.html" class="btn-primary px-3.5 py-1.5 text-xs font-bold flex items-center gap-1">
+            <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+            <span>Customer View</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN ADMIN CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    
+    <!-- EXECUTIVE KPI CARDS -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <!-- KPI 1 -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Today Bookings</span>
+          <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-xs">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="text-2xl font-black text-slate-900 font-mono">24</span>
+          <span class="text-[11px] font-semibold text-emerald-600">↑ 18% vs yday</span>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-1">16 Completed • 8 In-Transit</p>
+      </div>
+
+      <!-- KPI 2 -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Patna Field Fleet</span>
+          <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs">
+            <i data-lucide="users" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="text-2xl font-black text-slate-900 font-mono">48</span>
+          <span class="text-[11px] font-semibold text-emerald-600">100% Verified</span>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-1">Boring Rd, Kankarbagh, Bailey Rd</p>
+      </div>
+
+      <!-- KPI 3 -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">B2B Turnkey Quotes</span>
+          <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">
+            <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="text-2xl font-black text-slate-900 font-mono">7</span>
+          <span class="text-[11px] font-semibold text-blue-600">Site Surveys</span>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-1">Ruban Hospital, RWA, DPS School</p>
+      </div>
+
+      <!-- KPI 4 -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Patna GMV Today</span>
+          <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs">
+            ₹
+          </div>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="text-2xl font-black text-slate-900 font-mono">₹1.48L</span>
+          <span class="text-[11px] font-semibold text-emerald-600">↑ 24%</span>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-1">GST Tax Invoices Generated</p>
+      </div>
+
+      <!-- KPI 5 -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Patna Dispatch SLA</span>
+          <div class="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-xs">
+            <i data-lucide="clock" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="text-2xl font-black text-emerald-600 font-mono">18.4m</span>
+          <span class="text-[11px] font-semibold text-slate-500">avg arrival</span>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-1">Target: &lt; 30 mins (99.4% Pass)</p>
+      </div>
+    </div>
+
+    <!-- CHARTS TELEMETRY ROW -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Revenue by Locality -->
+      <div class="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <h3 class="font-bold text-slate-900 text-sm">Patna Locality Revenue Breakdown (₹'000)</h3>
+            <p class="text-xs text-slate-400">Order booking volume across top Patna hubs</p>
+          </div>
+          <span class="text-xs font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+            Live Telemetry
+          </span>
+        </div>
+        <div class="h-64">
+          <canvas id="adminRevenueChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Category Split -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <h3 class="font-bold text-slate-900 text-sm">Service Category Split</h3>
+            <p class="text-xs text-slate-400">Demand distribution in Bihar</p>
+          </div>
+        </div>
+        <div class="h-64 flex items-center justify-center">
+          <canvas id="adminCategoryChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPERATIONS DISPATCH BOARD -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="p-6 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-base font-black text-slate-900">Live Service Dispatch & Technician Assignment</h3>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          </div>
+          <p class="text-xs text-slate-500 mt-0.5">Real-time status changes, customer address, start OTP, and instant GST invoices.</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input type="text" placeholder="Filter by customer / ID..." class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-semibold focus:outline-none focus:border-amber-500" />
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead class="bg-slate-50 text-slate-500 font-bold border-b border-slate-200 uppercase text-[10px]">
+            <tr>
+              <th class="py-3 px-4">Booking ID</th>
+              <th class="py-3 px-4">Service & Vertical</th>
+              <th class="py-3 px-4">Customer & Locality</th>
+              <th class="py-3 px-4">Amount</th>
+              <th class="py-3 px-4">Technician Assigned</th>
+              <th class="py-3 px-4">Status</th>
+              <th class="py-3 px-4 text-right">Quick Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-bookings-tbody">
+            <!-- Injected via admin.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TURNKEY B2B & QUOTES BOARD -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="p-6 border-b border-slate-200">
+        <div class="flex items-center gap-2">
+          <h3 class="text-base font-black text-slate-900">B2B Turnkey & Site Survey Requests</h3>
+          <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Engineering Division</span>
+        </div>
+        <p class="text-xs text-slate-500 mt-0.5">Large-scale commercial, hospital, school, and RWA society projects.</p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead class="bg-slate-50 text-slate-500 font-bold border-b border-slate-200 uppercase text-[10px]">
+            <tr>
+              <th class="py-3 px-4">Quote ID</th>
+              <th class="py-3 px-4">Client Institution</th>
+              <th class="py-3 px-4">Scope & Locality</th>
+              <th class="py-3 px-4">Est. Project Value</th>
+              <th class="py-3 px-4">Status & Engineer</th>
+              <th class="py-3 px-4 text-right">Action</th>
+            </tr>
+          </thead>
+          <tbody id="admin-quotes-tbody">
+            <!-- Injected via admin.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TECHNICIAN FLEET RADAR -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="p-6 border-b border-slate-200">
+        <h3 class="text-base font-black text-slate-900">On-Duty Technician Fleet Roster</h3>
+        <p class="text-xs text-slate-500 mt-0.5">Police & Aadhaar verified partners stationed across Patna hubs.</p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead class="bg-slate-50 text-slate-500 font-bold border-b border-slate-200 uppercase text-[10px]">
+            <tr>
+              <th class="py-3 px-4">Partner ID</th>
+              <th class="py-3 px-4">Technician Name</th>
+              <th class="py-3 px-4">Specialization</th>
+              <th class="py-3 px-4">Rating</th>
+              <th class="py-3 px-4">Stationed Locality</th>
+              <th class="py-3 px-4">Verification</th>
+            </tr>
+          </thead>
+          <tbody id="admin-technicians-tbody">
+            <!-- Injected via admin.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- GST TAX INVOICE MODAL -->
+  <div id="gst-invoice-modal" class="hidden">
+    <!-- Injected dynamically via SevakInvoice.renderInvoice() -->
+  </div>
+
+  <!-- SCRIPTS LOAD -->
+  <script src="js/data.js"></script>
+  <script src="js/invoice.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
