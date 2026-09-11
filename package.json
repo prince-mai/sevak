@@ -4,7 +4,10 @@
   "description": "SEVAK - Patna & Bihar's Premier Multi-Service Hyperlocal & B2B Platform",
   "main": "server.js",
   "scripts": {
-    "start": "agy-node server.js"
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "keywords": [
     "patna",

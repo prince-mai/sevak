@@ -15,7 +15,7 @@ const SevakProject = {
           <div>
             <div class="flex items-center gap-2">
               <span class="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">
-                Active B2B Project
+                Sample project (illustrative)
               </span>
               <span class="text-xs text-slate-400 font-mono font-semibold">${proj.projectId}</span>
             </div>

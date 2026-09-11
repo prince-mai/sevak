@@ -6,15 +6,34 @@ const SevakApp = {
   currentCategoryFilter: 'all',
   currentArea: 'Boring Road',
 
+  isValidName(name) {
+    return typeof name === 'string' && name.trim().length >= 2;
+  },
+
+  isValidPhone(phone) {
+    const digits = String(phone || '').replace(/\D/g, '');
+    if (digits.length === 12 && digits.startsWith('91')) {
+      return /^[6-9]\d{9}$/.test(digits.slice(2));
+    }
+    return /^[6-9]\d{9}$/.test(digits);
+  },
+
+  normalizePhone(phone) {
+    const digits = String(phone || '').replace(/\D/g, '');
+    const ten = digits.length === 12 && digits.startsWith('91') ? digits.slice(2) : digits;
+    return '+91 ' + ten;
+  },
+
   init() {
     this.renderHeaderLocalities();
     this.renderServicesGrid();
     this.renderTestimonials();
     SevakBooking.init();
+    SevakQuote.captureTemplate();
     SevakAMC.renderPlans();
     SevakProject.renderProjectDashboard();
+    this.syncSearchPlaceholder();
 
-    // Check URL parameters for direct view triggers
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('mode') === 'mobile') {
       this.toggleMobileFrame(true);
@@ -52,8 +71,12 @@ const SevakApp = {
       }
     });
 
-    // Re-render services to update Hindi subheadings
+    document.documentElement.lang = lang === 'hi' ? 'hi' : 'en';
+    document.querySelectorAll('.lang-toggle-btn').forEach(btn => {
+      btn.setAttribute('aria-pressed', btn.dataset.lang === lang ? 'true' : 'false');
+    });
     this.renderServicesGrid();
+    this.syncSearchPlaceholder();
   },
 
   renderHeaderLocalities() {
@@ -83,13 +106,13 @@ const SevakApp = {
     const loc = SEVAK_DATA.patnaLocalities.find(l => l.name === areaName);
     if (loc) {
       banner.innerHTML = `
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span><b>${loc.techniciansAvailable} technicians</b> active in ${loc.name} • Avg arrival: <b>${loc.avgEtaMinutes} mins</b></span>
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>Serving <b>${loc.name}</b> • Typical first-response window about <b>${loc.avgEtaMinutes} mins</b> (estimate)</span>
       `;
     } else {
       banner.innerHTML = `
         <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-        <span>Standard coverage in <b>${areaName}</b> • Express booking active</span>
+        <span>Serving <b>${areaName}</b> — book a slot or call the helpline to confirm timing</span>
       `;
     }
   },
@@ -111,6 +134,8 @@ const SevakApp = {
   },
 
   onSearchServices(keyword) {
+    const input = document.getElementById('hero-service-search');
+    if (input && input.value !== keyword) input.value = keyword;
     this.renderServicesGrid(keyword.toLowerCase().trim());
   },
 
@@ -145,7 +170,7 @@ const SevakApp = {
         <div class="col-span-full text-center py-12">
           <p class="text-slate-400 text-sm font-medium">No services found matching "${searchQuery}".</p>
           <button onclick="SevakQuote.openQuoteModal()" class="mt-3 text-xs font-bold text-amber-600 underline">
-            Request custom custom quotation instead →
+            Request a custom quotation instead →
           </button>
         </div>
       `;
@@ -231,7 +256,7 @@ const SevakApp = {
 
         <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
           <span class="font-semibold text-slate-700">Service: ${t.service}</span>
-          <span class="text-emerald-600 font-bold flex items-center gap-1">✓ Verified Booking</span>
+          <span class="text-slate-400 font-semibold">Illustrative story</span>
         </div>
       </div>
     `).join('');
@@ -276,7 +301,8 @@ const SevakApp = {
   showToast(message, type = 'info') {
     const toast = document.createElement('div');
     toast.className = `fixed bottom-5 right-5 z-50 bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 border border-slate-700 transition-all transform duration-300 translate-y-4 opacity-0`;
-    toast.innerHTML = `<span>⚡</span><span>${message}</span>`;
+    toast.innerHTML = `<span>${message}</span>`;
+    toast.setAttribute('role', 'status');
     document.body.appendChild(toast);
 
     setTimeout(() => {
