@@ -18,9 +18,9 @@ const SevakInvoice = {
       day: 'numeric'
     });
 
-    const invoiceHTML = `
-      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
-        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 md:p-8 shadow-2xl relative my-8 border border-slate-200">
+      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-0 sm:p-4 backdrop-blur-sm overflow-y-auto">
+        <div class="bg-white rounded-t-3xl sm:rounded-2xl max-w-2xl w-full p-5 sm:p-8 shadow-2xl relative my-0 sm:my-8 border border-slate-200 modal-sheet-container">
+          <div class="modal-drag-handle"></div>
           <!-- Close & Print Bar -->
           <div class="flex justify-between items-center pb-4 border-b border-slate-100 no-print">
             <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-600 bg-amber-50 px-3 py-1 rounded-full">

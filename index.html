@@ -164,48 +164,124 @@
     </header>
 
     <!-- HERO SECTION -->
-    <section class="relative pt-8 pb-16 overflow-hidden bg-gradient-to-b from-amber-50/40 via-white to-slate-50 border-b border-slate-200/80">
+    <section class="relative pt-6 sm:pt-10 pb-12 sm:pb-16 overflow-hidden hero-vibrant-glow border-b border-slate-200/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div class="text-center max-w-3xl mx-auto">
           <!-- Trust Badge -->
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-100/70 border border-amber-300 text-amber-900 text-xs font-bold mb-4 shadow-sm">
-            <span class="flex h-2 w-2 rounded-full bg-amber-500"></span>
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 border border-amber-300 text-amber-900 text-xs font-black mb-3 shadow-sm">
+            <span class="flex h-2 w-2 rounded-full bg-amber-500 animate-pulse"></span>
             <span data-i18n="heroTag">BIHAR'S #1 TRUSTED SERVICE SUPER-PLATFORM</span>
           </div>
 
           <!-- Main Hero Headings -->
-          <h1 data-i18n="heroHeading" class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight sm:leading-none">
-            One Platform, <span class="bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 bg-clip-text text-transparent">Every Service</span>
+          <h1 data-i18n="heroHeading" class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15] sm:leading-none">
+            One Platform, <span class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 bg-clip-text text-transparent">Every Service</span>
           </h1>
-          <p data-i18n="heroSubheading" class="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium">
+          <p data-i18n="heroSubheading" class="mt-3 text-xs sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium">
             Professional Electrical, Plumbing, Pest Control, Civil, Construction, Aluminium/Glass, Painting, CCTV, Fire Safety & B2B Project Contracting across Patna & Bihar.
           </p>
 
           <!-- Interactive Instant Search Box -->
-          <div class="mt-8 max-w-xl mx-auto relative">
-            <div class="relative flex items-center shadow-lg rounded-2xl overflow-hidden border border-slate-200 bg-white">
+          <div class="mt-6 sm:mt-8 max-w-xl mx-auto relative">
+            <div class="relative flex items-center shadow-xl rounded-2xl overflow-hidden border-2 border-amber-400/40 focus-within:border-amber-500 bg-white transition">
               <div class="pl-4 text-slate-400">
                 <i data-lucide="search" class="w-5 h-5 text-amber-500"></i>
               </div>
               <input type="text"
                 id="hero-service-search"
                 oninput="SevakApp.onSearchServices(this.value)"
-                placeholder="Search for AC service, plumber, termite, glass partition, painting..."
-                class="w-full py-4 pl-3 pr-28 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none" />
-              <button onclick="SevakBooking.openBooking()" class="absolute right-2 btn-primary px-4 py-2.5 text-xs font-bold flex items-center gap-1">
+                placeholder="Search AC, plumber, termite, glass, paint, CCTV..."
+                class="w-full py-3.5 sm:py-4 pl-3 pr-28 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none" />
+              <button onclick="SevakBooking.openBooking()" class="absolute right-2 btn-primary px-3.5 sm:px-4 py-2 sm:py-2.5 text-xs font-bold flex items-center gap-1 shadow-md">
                 <span>Book Now</span>
               </button>
             </div>
 
             <!-- Quick Keyword Tags -->
-            <div class="mt-3 flex flex-wrap justify-center items-center gap-1.5 text-[11px] text-slate-500">
-              <span class="font-semibold text-slate-400">Popular:</span>
-              <button onclick="SevakApp.onSearchServices('ac')" class="px-2 py-0.5 bg-white rounded border border-slate-200 hover:border-amber-400">AC Service</button>
-              <button onclick="SevakApp.onSearchServices('leak')" class="px-2 py-0.5 bg-white rounded border border-slate-200 hover:border-amber-400">Water Leakage</button>
-              <button onclick="SevakApp.onSearchServices('termite')" class="px-2 py-0.5 bg-white rounded border border-slate-200 hover:border-amber-400">Termite (दीमक)</button>
-              <button onclick="SevakApp.onSearchServices('glass')" class="px-2 py-0.5 bg-white rounded border border-slate-200 hover:border-amber-400">Glass Partition</button>
-              <button onclick="SevakApp.onSearchServices('cctv')" class="px-2 py-0.5 bg-white rounded border border-slate-200 hover:border-amber-400">CCTV Kit</button>
-              <button onclick="SevakApp.onSearchServices('seelan')" class="px-2 py-0.5 bg-white rounded border border-slate-200 hover:border-amber-400">सीलन (Dampness)</button>
+            <div class="mt-2.5 flex flex-wrap justify-center items-center gap-1.5 text-[11px] text-slate-500">
+              <span class="font-bold text-slate-400">Quick:</span>
+              <button onclick="SevakApp.onSearchServices('ac')" class="px-2 py-0.5 bg-white rounded-lg border border-slate-200 hover:border-amber-400 shadow-2xs font-medium">⚡ AC Jet</button>
+              <button onclick="SevakApp.onSearchServices('leak')" class="px-2 py-0.5 bg-white rounded-lg border border-slate-200 hover:border-amber-400 shadow-2xs font-medium">💧 Leakage</button>
+              <button onclick="SevakApp.onSearchServices('termite')" class="px-2 py-0.5 bg-white rounded-lg border border-slate-200 hover:border-amber-400 shadow-2xs font-medium">🛡️ दीमक 2-Yr</button>
+              <button onclick="SevakApp.onSearchServices('glass')" class="px-2 py-0.5 bg-white rounded-lg border border-slate-200 hover:border-amber-400 shadow-2xs font-medium">🪟 Glass Cabin</button>
+              <button onclick="SevakApp.onSearchServices('seelan')" class="px-2 py-0.5 bg-white rounded-lg border border-slate-200 hover:border-amber-400 shadow-2xs font-medium">🧱 सीलन Fix</button>
+            </div>
+          </div>
+
+          <!-- Mobile Quick Category Stories Reel -->
+          <div class="mt-6 w-full overflow-x-auto scrollbar-none pb-2 pt-1">
+            <div class="flex items-center gap-3 px-1 min-w-max mx-auto justify-start sm:justify-center">
+              <button onclick="SevakBooking.openBooking('electrical')" class="flex flex-col items-center gap-1 group cursor-pointer transition">
+                <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-amber-600 text-white flex items-center justify-center shadow-lg shadow-amber-500/25 group-active:scale-95 transition">
+                  <i data-lucide="zap" class="w-6 h-6"></i>
+                </div>
+                <span class="text-[11px] font-bold text-slate-800 mt-0.5">Electric</span>
+                <span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.2 rounded-full">₹149</span>
+              </button>
+
+              <button onclick="SevakBooking.openBooking('plumbing')" class="flex flex-col items-center gap-1 group cursor-pointer transition">
+                <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-cyan-400 via-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/25 group-active:scale-95 transition">
+                  <i data-lucide="droplet" class="w-6 h-6"></i>
+                </div>
+                <span class="text-[11px] font-bold text-slate-800 mt-0.5">Plumbing</span>
+                <span class="text-[9px] bg-blue-100 text-blue-800 font-bold px-1.5 py-0.2 rounded-full">30m SLA</span>
+              </button>
+
+              <button onclick="SevakBooking.openBooking('pest-control')" class="flex flex-col items-center gap-1 group cursor-pointer transition">
+                <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-emerald-400 via-teal-500 to-green-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/25 group-active:scale-95 transition">
+                  <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                </div>
+                <span class="text-[11px] font-bold text-slate-800 mt-0.5">Termite</span>
+                <span class="text-[9px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.2 rounded-full">2-Yr War.</span>
+              </button>
+
+              <button onclick="SevakBooking.openBooking('cleaning')" class="flex flex-col items-center gap-1 group cursor-pointer transition">
+                <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-fuchsia-500 via-purple-600 to-pink-500 text-white flex items-center justify-center shadow-lg shadow-purple-500/25 group-active:scale-95 transition">
+                  <i data-lucide="sparkles" class="w-6 h-6"></i>
+                </div>
+                <span class="text-[11px] font-bold text-slate-800 mt-0.5">Cleaning</span>
+                <span class="text-[9px] bg-purple-100 text-purple-800 font-bold px-1.5 py-0.2 rounded-full">Deep Clean</span>
+              </button>
+
+              <button onclick="SevakBooking.openBooking('maintenance')" class="flex flex-col items-center gap-1 group cursor-pointer transition">
+                <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-orange-400 via-amber-500 to-red-500 text-white flex items-center justify-center shadow-lg shadow-orange-500/25 group-active:scale-95 transition">
+                  <i data-lucide="hammer" class="w-6 h-6"></i>
+                </div>
+                <span class="text-[11px] font-bold text-slate-800 mt-0.5">Carpentry</span>
+                <span class="text-[9px] bg-orange-100 text-orange-800 font-bold px-1.5 py-0.2 rounded-full">Repairs</span>
+              </button>
+
+              <button onclick="SevakQuote.openQuoteModal('civil-renovation')" class="flex flex-col items-center gap-1 group cursor-pointer transition">
+                <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-rose-500 via-orange-600 to-stone-800 text-white flex items-center justify-center shadow-lg shadow-rose-500/25 group-active:scale-95 transition">
+                  <i data-lucide="brick-wall" class="w-6 h-6"></i>
+                </div>
+                <span class="text-[11px] font-bold text-slate-800 mt-0.5">सीलन/Civil</span>
+                <span class="text-[9px] bg-rose-100 text-rose-800 font-bold px-1.5 py-0.2 rounded-full">Free Survey</span>
+              </button>
+
+              <button onclick="SevakQuote.openQuoteModal('aluminium-glass')" class="flex flex-col items-center gap-1 group cursor-pointer transition">
+                <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-sky-400 via-cyan-500 to-teal-500 text-white flex items-center justify-center shadow-lg shadow-cyan-500/25 group-active:scale-95 transition">
+                  <i data-lucide="panels-top-left" class="w-6 h-6"></i>
+                </div>
+                <span class="text-[11px] font-bold text-slate-800 mt-0.5">Glass Work</span>
+                <span class="text-[9px] bg-cyan-100 text-cyan-800 font-bold px-1.5 py-0.2 rounded-full">12mm</span>
+              </button>
+
+              <button onclick="SevakQuote.openQuoteModal('painting')" class="flex flex-col items-center gap-1 group cursor-pointer transition">
+                <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-pink-500 via-rose-500 to-purple-600 text-white flex items-center justify-center shadow-lg shadow-pink-500/25 group-active:scale-95 transition">
+                  <i data-lucide="paint-bucket" class="w-6 h-6"></i>
+                </div>
+                <span class="text-[11px] font-bold text-slate-800 mt-0.5">Painting</span>
+                <span class="text-[9px] bg-pink-100 text-pink-800 font-bold px-1.5 py-0.2 rounded-full">Apex Sheen</span>
+              </button>
+
+              <button onclick="SevakBooking.openBooking('cctv')" class="flex flex-col items-center gap-1 group cursor-pointer transition">
+                <div class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-teal-400 via-emerald-500 to-cyan-800 text-white flex items-center justify-center shadow-lg shadow-teal-500/25 group-active:scale-95 transition">
+                  <i data-lucide="video" class="w-6 h-6"></i>
+                </div>
+                <span class="text-[11px] font-bold text-slate-800 mt-0.5">CCTV</span>
+                <span class="text-[9px] bg-teal-100 text-teal-800 font-bold px-1.5 py-0.2 rounded-full">IP Kits</span>
+              </button>
             </div>
           </div>
 
@@ -545,8 +621,9 @@
   <!-- ========================================================================= -->
 
   <!-- 1. MULTI-STEP SERVICE BOOKING MODAL -->
-  <div id="booking-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
-    <div class="bg-white rounded-3xl max-w-xl w-full p-6 md:p-8 shadow-2xl relative my-8 border border-slate-200">
+  <div id="booking-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-0 sm:p-4 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white rounded-t-3xl sm:rounded-3xl max-w-xl w-full p-5 sm:p-8 shadow-2xl relative my-0 sm:my-8 border border-slate-200 modal-sheet-container">
+      <div class="modal-drag-handle"></div>
       <!-- Confetti Canvas for celebration -->
       <canvas id="booking-confetti-canvas" class="absolute inset-0 pointer-events-none z-30"></canvas>
 
@@ -766,8 +843,9 @@
   </div>
 
   <!-- 2. CUSTOM PROJECT & B2B QUOTE MODAL -->
-  <div id="quote-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
-    <div class="bg-white rounded-3xl max-w-xl w-full p-6 md:p-8 shadow-2xl relative my-8 border border-slate-200">
+  <div id="quote-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-0 sm:p-4 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white rounded-t-3xl sm:rounded-3xl max-w-xl w-full p-5 sm:p-8 shadow-2xl relative my-0 sm:my-8 border border-slate-200 modal-sheet-container">
+      <div class="modal-drag-handle"></div>
       <!-- Modal Header -->
       <div class="flex justify-between items-center pb-4 border-b border-slate-100">
         <div class="flex items-center gap-2">
@@ -894,8 +972,9 @@
   </div>
 
   <!-- 3. LIVE TECHNICIAN GPS TRACKING MODAL (LEAFLET.JS PATNA MAP) -->
-  <div id="tracking-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
-    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 md:p-8 shadow-2xl relative my-8 border border-slate-200">
+  <div id="tracking-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-0 sm:p-4 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white rounded-t-3xl sm:rounded-3xl max-w-2xl w-full p-5 sm:p-8 shadow-2xl relative my-0 sm:my-8 border border-slate-200 modal-sheet-container">
+      <div class="modal-drag-handle"></div>
       <!-- Modal Header -->
       <div class="flex justify-between items-center pb-4 border-b border-slate-100">
         <div class="flex items-center gap-2">
@@ -966,8 +1045,9 @@
   </div>
 
   <!-- 4. SAMPLE BLUEPRINT / BOQ PREVIEW MODAL -->
-  <div id="blueprint-preview-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
-    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 md:p-8 shadow-2xl relative my-8 border border-slate-200">
+  <div id="blueprint-preview-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-0 sm:p-4 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white rounded-t-3xl sm:rounded-3xl max-w-2xl w-full p-5 sm:p-8 shadow-2xl relative my-0 sm:my-8 border border-slate-200 modal-sheet-container">
+      <div class="modal-drag-handle"></div>
       <div class="flex justify-between items-center pb-4 border-b border-slate-100">
         <div class="flex items-center gap-2">
           <span class="text-xl">📐</span>
@@ -1031,6 +1111,40 @@
   <div id="gst-invoice-modal" class="hidden">
     <!-- Injected dynamically via SevakInvoice.renderInvoice() -->
   </div>
+
+  <!-- FLOATING QUICK ACTION BUTTON (WhatsApp & Emergency) -->
+  <div class="floating-quick-action">
+    <a href="https://wa.me/919661168109?text=Hello%20SEVAK%2C%20I%20need%20service%20in%20Patna" target="_blank" rel="noopener noreferrer" class="fab-call bg-emerald-500" title="Chat on WhatsApp (+91 96611 68109)">
+      <i data-lucide="message-circle" class="w-6 h-6"></i>
+    </a>
+  </div>
+
+  <!-- STICKY MOBILE BOTTOM NAVIGATION BAR (Vibrant & Native App Feel) -->
+  <nav class="mobile-bottom-bar md:hidden flex justify-around items-center">
+    <a href="#app-viewport-container" class="mobile-nav-item active">
+      <i data-lucide="home" class="w-5 h-5 mb-0.5 text-amber-500"></i>
+      <span>Home</span>
+    </a>
+    <a href="#services-section" class="mobile-nav-item">
+      <i data-lucide="layout-grid" class="w-5 h-5 mb-0.5 text-slate-600"></i>
+      <span>Services</span>
+    </a>
+    <button type="button" onclick="SevakTracking.openTracking()" class="mobile-nav-item relative">
+      <span class="absolute top-0.5 right-2.5 w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+      <i data-lucide="navigation" class="w-5 h-5 mb-0.5 text-emerald-600"></i>
+      <span>Radar</span>
+    </button>
+    <button type="button" onclick="SevakQuote.openQuoteModal()" class="mobile-nav-item">
+      <i data-lucide="calculator" class="w-5 h-5 mb-0.5 text-blue-600"></i>
+      <span>Quote</span>
+    </button>
+    <a href="tel:+919661168109" class="mobile-nav-item text-amber-700 font-extrabold">
+      <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-md">
+        <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+      </div>
+      <span class="mt-0.5">Call SOS</span>
+    </a>
+  </nav>
 
   <!-- SCRIPTS LOAD -->
   <script src="js/data.js"></script>

@@ -51,7 +51,7 @@ const SEVAK_DATA = {
       nameHindi: "बिजली और वायरिंग सेवा",
       icon: "zap",
       badge: "High Demand",
-      color: "from-amber-500 to-yellow-600",
+      color: "from-amber-400 via-orange-500 to-amber-600",
       description: "Fast MCB fixes, inverter/UPS wiring, AC maintenance, heavy load panels & rewiring.",
       subservices: [
         { id: "e1", name: "Switch & Socket Repair / Replacement", price: 149, time: "30 mins", warranty: "30 Days Warranty" },
@@ -68,7 +68,7 @@ const SEVAK_DATA = {
       nameHindi: "प्लंबिंग और जल सेवा",
       icon: "droplet",
       badge: "Emergency 30m",
-      color: "from-blue-500 to-cyan-600",
+      color: "from-cyan-400 via-blue-600 to-indigo-600",
       description: "Leakage repair, sanitary fixtures, water tank descaling, submersible motor repairs.",
       subservices: [
         { id: "p1", name: "Tap & Mixer Leakage Repair / Installation", price: 179, time: "30 mins", warranty: "30 Days Leak-Proof Guarantee" },
@@ -85,7 +85,7 @@ const SEVAK_DATA = {
       nameHindi: "दीमक और कीट नियंत्रण",
       icon: "shield-alert",
       badge: "Govt Certified",
-      color: "from-emerald-500 to-teal-600",
+      color: "from-emerald-400 via-teal-500 to-green-600",
       description: "Eco-safe herbal pest control, 2-year termite drill warranty, mosquito fogging & bedbug relief.",
       subservices: [
         { id: "pc1", name: "Complete Home Herbal Cockroach & Ant Gel Treatment", price: 899, time: "60 mins", warranty: "90 Days Warranty" },
@@ -101,7 +101,7 @@ const SEVAK_DATA = {
       nameHindi: "डीप क्लीनिंग और स्वच्छता",
       icon: "sparkles",
       badge: "Top Rated",
-      color: "from-indigo-500 to-violet-600",
+      color: "from-fuchsia-500 via-purple-600 to-pink-500",
       description: "Mechanized deep cleaning, sofa & carpet shampooing, modular kitchen degreasing, bathroom descaling.",
       subservices: [
         { id: "c1", name: "Full Home Deep Mechanized Cleaning (2 BHK / 3 BHK)", price: 2499, time: "4-5 hours", warranty: "Single-Day Sparkle Handover" },
@@ -117,7 +117,7 @@ const SEVAK_DATA = {
       nameHindi: "कारपेंटर और मरम्मत सेवा",
       icon: "hammer",
       badge: "Skilled Artisans",
-      color: "from-amber-600 to-orange-700",
+      color: "from-orange-400 via-amber-500 to-red-500",
       description: "Furniture repair, hydraulic hinges, smart digital lock install, sliding wardrobe & modular fixes.",
       subservices: [
         { id: "m1", name: "Door Lock / Smart Digital Lock Installation", price: 349, time: "45 mins", warranty: "Precision Fit" },
@@ -133,7 +133,7 @@ const SEVAK_DATA = {
       nameHindi: "सिविल व मरम्मत कार्य",
       icon: "brick-wall",
       badge: "Engineered",
-      color: "from-stone-600 to-stone-800",
+      color: "from-rose-500 via-orange-600 to-stone-800",
       description: "Wall dampness (सीलन) rectification, structural repairs, Italian marble & vitrified tiles, plastering.",
       subservices: [
         { id: "cr1", name: "Anti-Dampness (सीलन) Chemical Injection & Plaster Treatment", price: 49, unit: "per sq.ft", time: "1-2 days", warranty: "5 Years No-Seelan Guarantee" },
@@ -148,7 +148,7 @@ const SEVAK_DATA = {
       nameHindi: "भवन निर्माण व विस्तार",
       icon: "building-2",
       badge: "Turnkey BOQ",
-      color: "from-blue-700 to-slate-900",
+      color: "from-blue-600 via-indigo-600 to-slate-900",
       description: "Boundary walls, rooftop floor addition (छत निर्माण), duplexes, commercial godowns with Bihar by-laws.",
       subservices: [
         { id: "co1", name: "Rooftop Extra Floor RCC Construction (Material + Labor)", price: 1450, unit: "per sq.ft", time: "Milestone", warranty: "RERA Compliant Grade" },
@@ -163,7 +163,7 @@ const SEVAK_DATA = {
       nameHindi: "एल्युमिनियम व ग्लास वर्क",
       icon: "panels-top-left",
       badge: "Modern Architecture",
-      color: "from-cyan-600 to-sky-800",
+      color: "from-sky-400 via-cyan-500 to-teal-500",
       description: "Toughened glass office cabins, UPVC & Jindal aluminium sliding windows, spider glazing, balcony glass railings.",
       subservices: [
         { id: "ag1", name: "Toughened 12mm Glass Partition with Patch Fittings", price: 285, unit: "per sq.ft", time: "3 days", warranty: "Saint-Gobain Glass with 5-Year Hardware Warranty" },
@@ -178,7 +178,7 @@ const SEVAK_DATA = {
       nameHindi: "पेंटिंग और वाटरप्रूफिंग",
       icon: "paint-bucket",
       badge: "Asian Paints Certified",
-      color: "from-rose-500 to-pink-600",
+      color: "from-pink-500 via-rose-500 to-purple-600",
       description: "Dustless mechanized sanding, royal luxury sheen, exterior weatherproof Apex Ultima, terrace waterproofing.",
       subservices: [
         { id: "pt1", name: "Interior 3-BHK Royal Luxury Emulsion Package (Labor + Paint)", price: 14999, time: "4-5 days", warranty: "3 Years Mirror Finish Guarantee" },
@@ -193,7 +193,7 @@ const SEVAK_DATA = {
       nameHindi: "अग्निशमन व सुरक्षा",
       icon: "flame",
       badge: "Bihar Fire NOC Ready",
-      color: "from-red-600 to-rose-700",
+      color: "from-red-500 via-rose-600 to-orange-500",
       description: "ISI fire extinguisher refilling, wireless smoke alarms, wet riser systems, safety audits for schools & hospitals.",
       subservices: [
         { id: "fs1", name: "ABC / CO2 Fire Extinguisher Refill & Pressure Testing (Per Cylinder)", price: 499, time: "24 hrs", warranty: "Govt Hydro-Test Certified" },
@@ -208,7 +208,7 @@ const SEVAK_DATA = {
       nameHindi: "सीसीटीवी और सुरक्षा तकनीक",
       icon: "video",
       badge: "Mobile Live View",
-      color: "from-teal-600 to-emerald-800",
+      color: "from-teal-400 via-emerald-500 to-cyan-800",
       description: "HD IP cameras, Biometric attendance, night vision color sensors, remote mobile monitoring setup.",
       subservices: [
         { id: "cc1", name: "4-Channel HD IP CCTV Complete Kit + Installation (CP Plus/Hikvision)", price: 9499, time: "4 hours", warranty: "2 Years On-Site Replacement" },
@@ -223,7 +223,7 @@ const SEVAK_DATA = {
       nameHindi: "विज्ञापन व साइनेज बोर्ड",
       icon: "megaphone",
       badge: "Business Growth",
-      color: "from-purple-600 to-indigo-800",
+      color: "from-violet-500 via-purple-600 to-indigo-600",
       description: "Acrylic LED 3D letter glow-sign boards, hoardings at prime Patna roundabouts, shop front branding, Meta/Google ads.",
       subservices: [
         { id: "ad1", name: "LED 3D Acrylic Letter Glow-Sign Board (Frontlit)", price: 180, unit: "per inch / letter", time: "4 days", warranty: "Samsung LED 2-Year Warranty" },
@@ -238,7 +238,7 @@ const SEVAK_DATA = {
       nameHindi: "वार्षिक रखरखाव अनुबंध",
       icon: "calendar-check",
       badge: "SLA Guaranteed",
-      color: "from-amber-700 to-yellow-800",
+      color: "from-amber-500 via-yellow-500 to-orange-600",
       description: "Year-round preventive visits, 45-minute emergency technician SLAs, zero labor charges for Homes, Societies, Hospitals.",
       subservices: [
         { id: "am1", name: "SEVAK Home Shield (1 Year - Electrical + Plumbing + Pest)", price: 4999, unit: "per year", time: "1 Year", warranty: "Unlimited Free Visits & 45m SLA" },
@@ -253,7 +253,7 @@ const SEVAK_DATA = {
       nameHindi: "बी२बी प्रोजेक्ट व टर्नकी",
       icon: "briefcase",
       badge: "GST Compliant",
-      color: "from-slate-800 to-zinc-950",
+      color: "from-slate-900 via-indigo-950 to-blue-950",
       description: "Turnkey contracts, Bill of Quantities (BOQ), commercial fitouts, schools, warehouses, GST input credit billing.",
       subservices: [
         { id: "b1", name: "Office / Coworking Full Interior Fit-Out & Cabling", price: 850, unit: "per sq.ft", time: "Turnkey", warranty: "5-Year Turnkey Warranty" },
