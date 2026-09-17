@@ -10,8 +10,8 @@
 **SEVAK** is a modern, mobile-first on-demand and B2B turnkey services platform built for homeowners, retail shops, housing societies (RWAs), corporate offices, schools, hospitals, and builders across Patna and expanding Bihar districts.
 
 - **Helpline / WhatsApp**: `+91 96611 68109` (9661168109)
-- **Patna Head Office**: Opposite Maurya Lok Complex, Dak Bunglow Road, Patna, Bihar 800001
-- **Bihar GST Compliant**: State Code `10`, GSTIN: `10AABCS8891P1ZK`
+- **Patna Head Office**: Mahavir colony, Beur,Anisabad, Patna, Bihar 800002
+- **Bihar GST Compliant**: State Code `10`, GSTIN: `0000000`
 
 ---
 
